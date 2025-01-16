@@ -1,12 +1,45 @@
-import Grid2Background from 'https://cdn.jsdelivr.net/npm/threejs-components@0.0.17/build/backgrounds/grid2.cdn.min.js'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="main.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <canvas class="webgl"></canvas>
 
-const bg = Grid2Background(document.getElementById('webgl-canvas'))
+<!-- <div id="loader">
+  <h1>Loading...</h1>
+</div> -->
 
-document.body.addEventListener('click', () => {
-  bg.grid.setColors([0xffffff * Math.random(), 0xffffff * Math.random(), 0xffffff * Math.random()])
-  bg.grid.light1.color.set(0xffffff * Math.random())
-  bg.grid.light1.intensity = 500 + Math.random() * 1000
-  bg.grid.light2.color.set(0xffffff * Math.random())
-  bg.grid.light2.intensity = 250 + Math.random() * 250
-  // bg.grid.plane.material.color.set(0xffffff * Math.random())
-})
+<script type="x-shader/x-vertex" id="vertexshaderCandle">
+  void main() {
+	  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+</script>
+
+<script type="x-shader/x-fragment" id="fragmentshaderCandle">
+	uniform float time; 
+	uniform float colorSpeed;
+	uniform float delay; 
+	uniform vec3 baseColor;
+	uniform vec3 finalColor;
+	varying vec2 vUv;
+
+	void main() {
+		float animatedTime = time - delay;
+		animatedTime = mod(animatedTime, colorSpeed);
+		float mixFactor = animatedTime / colorSpeed;
+		vec3 finalColor = mix(baseColor, finalColor, mixFactor);
+		gl_FragColor = vec4(finalColor, 1.0);
+	}
+</script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r124/three.min.js"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/controls/OrbitControls.js"></script> -->
+
+</body>
+</html>
