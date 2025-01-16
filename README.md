@@ -1,2 +1,0 @@
-# Sukuna
-I am coder
